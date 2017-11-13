@@ -1,6 +1,6 @@
 class DateUtil {
   static getDay() {
-    return (Date ? new Date().getUTCDate() : null);
+    return (Date ? new Date().getDate() : null);
   }
 
   static getMonth() {

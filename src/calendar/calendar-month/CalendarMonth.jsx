@@ -7,8 +7,7 @@ const WEEK_IN_A_MONTH_VIEW = 6;
 const CalendarMonthStyle = {
   display: 'flex',
   flexDirection: 'column',
-  flexWrap: 'no-wrap',
-  paddingTop: '10px'
+  flexWrap: 'no-wrap'
 };
 
 class CalendarMonth extends Component {

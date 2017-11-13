@@ -5,6 +5,7 @@ import DateUtil from 'utils/DateUtil';
 import CalendarYear from 'calendar/calendar-year/CalendarYear';
 import MonthIndicator from 'indicators/month-indicator/MonthIndicator';
 import YearIndicator from 'indicators/year-indicator/YearIndicator';
+import WeekIndicator from 'indicators/week-indicator/WeekIndicator';
 import DateSelector from 'indicators/date-selector/DateSelector';
 
 const CalendarStyle = {
@@ -43,6 +44,7 @@ class Calendar extends Component {
             <DateSelector />
           </div>
         </div>
+        <WeekIndicator />
         <CalendarYear year={this.state.year} month={this.state.month} />
       </div>
     );
