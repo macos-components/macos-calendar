@@ -3,11 +3,11 @@
 ### Familiar with Npm?
 
 ```
-	> npm install --save macos-calendar
+> npm install --save macos-calendar
 ```
 
 ```jsx
-import Calendar from macos-calendar;
+import Calendar from 'macos-calendar';
 
 const SomePage = () => (
   <Calendar />
