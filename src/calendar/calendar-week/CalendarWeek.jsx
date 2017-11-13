@@ -9,7 +9,8 @@ const CalendarWeekStyle = {
   display: 'flex',
   flexDirection: 'row',
   flexWrap: 'no-wrap',
-  flexGrow: '1'
+  flexGrow: '1',
+  borderBottom: '1px solid rgb(205, 205, 205)'
 }
 
 class CalendarWeek extends Component {

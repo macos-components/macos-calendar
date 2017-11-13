@@ -4,7 +4,9 @@ const CalendarDayStyle = {
   flexGrow: '1',
   flexBasis: '0',
   minHeight: '50px',
-  position: 'relative'
+  position: 'relative',
+  padding: '5px',
+  borderRight: '1px solid rgb(205, 205, 205)'
 };
 const SpanStyle = {
   position: 'absolute',
