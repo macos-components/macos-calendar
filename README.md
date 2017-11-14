@@ -14,4 +14,4 @@ const SomePage = () => (
 );
 ```
 
-Demo available at: http://mustafaarikan.net/mycalendar/
+Demo available at: http://mustafaarikan.net/macos-calendar/
