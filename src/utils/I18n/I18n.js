@@ -4,7 +4,7 @@ import tr from './languages/tr';
 class I18n {
   constructor(language) {
     this.language = language;
-    this.data = { en, tr };
+    this.data = { tr, en };
   }
 
   get(key, ...params) {
@@ -17,6 +17,18 @@ class I18n {
     }
 
     return translatedString;
+  }
+
+  setLanguage(lang) {
+    this.language = lang;
+  }
+
+  getLanguage() {
+    return this.language;
+  }
+
+  getLanguages() {
+    return Object.keys(this.data);
   }
 }
 
