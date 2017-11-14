@@ -1,6 +1,6 @@
 {
   "name": "macos-calendar",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "MacOs Calendar is a Calendar component for react looks like MacOs native calendar.",
   "main": "build/index.js",
   "peerDependencies": {
