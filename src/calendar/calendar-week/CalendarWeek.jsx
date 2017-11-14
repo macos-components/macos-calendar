@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 
-import DateUtil from 'utils/DateUtil';
 import CalendarDay from 'calendar/calendar-day/CalendarDay';
 
 const DAYS_IN_A_WEEK = 7;
-const currentDay = DateUtil.getDay();
 const CalendarWeekStyle = {
   display: 'flex',
   flexDirection: 'row',
@@ -17,12 +15,30 @@ class CalendarWeek extends Component {
   renderCells() {
     const cells = [];
     const startDay = this.props.startDate || new Date();
+    const date = this.props.date || new Date();
+    const today = new Date();
 
     for (let i = 0; i < DAYS_IN_A_WEEK; i++) {
       const day = new Date(startDay.getTime());
       day.setDate(day.getDate() + i);
-      const current = day.getDate() === new Date().getDate();
-      cells.push(<CalendarDay day={day} key={i} current={current} />);
+      const current = day.toDateString() === today.toDateString();
+      const inactive = day.getMonth() !== date.getMonth();
+      const events = this.props.events.filter((ev) => {
+        return ev.date.toDateString() === day.toDateString();
+      });
+
+      cells.push(
+        <CalendarDay
+          day={day}
+          key={i}
+          current={current}
+          inactive={inactive}
+          events={events}
+          onCellClick={this.props.onCellClick}
+          onAddEvent={this.props.onAddEvent}
+          onEditEvent={this.props.onEditEvent}
+        />
+      );
     }
 
     return cells;

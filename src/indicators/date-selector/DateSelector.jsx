@@ -10,9 +10,9 @@ class DateSelector extends Component {
   render() {
     return (
       <div className="macos-calendar-date-selector">
-        <button>{'<'}</button>
-        <button>{i18n.get('today')}</button>
-        <button>{'>'}</button>
+        <button onClick={this.props.onLeftButtonClick}>{'<'}</button>
+        <button onClick={this.props.onTodayButtonClick}>{i18n.get('today')}</button>
+        <button onClick={this.props.onRightButtonClick}>{'>'}</button>
       </div>
     );
   }

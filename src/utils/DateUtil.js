@@ -1,18 +1,9 @@
+import i18n from 'utils/i18n/I18n';
+const ONE_WEEK_IN_MS = 7 * 24 * 60  * 60 * 1000;
+const ONE_MONTH_IN_MS = 31 * 24 * 60  * 60 * 1000;
+
 class DateUtil {
-  static getDay() {
-    return (Date ? new Date().getDate() : null);
-  }
-
-  static getMonth() {
-    return (Date ? new Date().getUTCMonth() + 1 : null);
-  }
-
-  static getYear() {
-    return (Date ? new Date().getUTCFullYear() : null);
-  }
-
-  static getStartDayOfMonthCalendar() {
-    const today = new Date();
+  static getStartDayOfMonthCalendar(today = new Date()) {
     const oneOfTheMonth = new Date();
     oneOfTheMonth.setFullYear(today.getFullYear(), today.getMonth(), 1);
     const weekDayIndex = oneOfTheMonth.getDay();
@@ -20,10 +11,19 @@ class DateUtil {
     return oneOfTheMonth;
   }
 
-  static getMonthDays() {
-    const today = new Date();
-    const date = new Date(today.getFullYear(), today.getMonth() + 1, 0);
-    return date.getDate();
+  static toString(date = new Date()) {
+    const shortMonthName = i18n.get(`month_${date.getMonth()}_short`);
+    const day = date.getDate();
+    const year = date.getFullYear();
+    return `${shortMonthName} ${day}, ${year}`;
+  }
+
+  static isSameWeek(checkDate = new Date(), weekStart = new Date()) {
+      return Math.abs(weekStart.getTime() - checkDate.getTime()) <= ONE_WEEK_IN_MS;
+  }
+
+  static isSameMonth(checkDate = new Date(), weekStart = new Date()) {
+      return Math.abs(weekStart.getTime() - checkDate.getTime()) <= ONE_MONTH_IN_MS;
   }
 }
 
