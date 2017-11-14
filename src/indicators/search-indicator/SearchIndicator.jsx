@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 
 import i18n from 'utils/i18n/I18n';
+import DateUtil from 'utils/DateUtil';
 import TextField from 'form/TextField';
+
+const MINIMUM_STR_LEN = 3;
 
 const SearchResultsStyle = {
   position: 'absolute',
@@ -30,6 +33,21 @@ const EventTimeStyle = {
   fontSize: '14px'
 };
 
+const EventDateStyle = {
+  float: 'left',
+  width: '20%',
+  boxSizing: 'border-box',
+  textAlign: 'center',
+  fontWeight: '200'
+}
+
+const EventContentStyle = {
+  float: 'left',
+  width: '80%',
+  boxSizing: 'border-box',
+  paddingLeft: '10px'
+}
+
 class SearchIndicator extends Component {
   constructor(props) {
     super(props);
@@ -44,9 +62,15 @@ class SearchIndicator extends Component {
   renderSearchResults = () => (
     this.state.search !== '' && this.state.showResults ? this.state.searchResults.map((event, index) => (
       <div style={SearchResultStyle} key={index}>
-        <div style={EventTitleStyle}>{event.title}</div>
-        <div style={EventDescStyle}>{event.description}</div>
-        <div style={EventTimeStyle}>{event.startTime} {i18n.get('to')} {event.endTime}</div>
+        <div style={EventDateStyle}>
+          {DateUtil.toShortString(event.date)}
+        </div>
+        <div style={EventContentStyle}>
+          <div style={EventTitleStyle}>{event.title}</div>
+          <div style={EventDescStyle}>{event.description}</div>
+          <div style={EventTimeStyle}>{event.startTime} {i18n.get('to')} {event.endTime}</div>
+        </div>
+        <div style={{ clear: 'both' }} />
       </div>
     )): null
   )
@@ -61,11 +85,18 @@ class SearchIndicator extends Component {
 
   onChange = (ev) => {
     const search = ev.target.value;
-    const searchResults = this.props.events.filter((event) => {
-      const regex = new RegExp(search, 'i');
-      return event.title.search(regex) >= 0;
-    });
-    this.setState({ [ev.target.name]: search, searchResults });
+    let searchResults, showResults;
+    if (search.length >= MINIMUM_STR_LEN) {
+      searchResults = this.props.events.filter((event) => {
+        const regex = new RegExp(search, 'i');
+        return event.title.search(regex) >= 0;
+      });
+      showResults = true;
+    } else {
+      searchResults = [];
+      showResults = false;
+    }
+    this.setState({ [ev.target.name]: search, searchResults, showResults });
   }
 
   render() {
@@ -76,8 +107,9 @@ class SearchIndicator extends Component {
           placeholder={i18n.get('search_events')}
           value={this.state.search}
           onChange={this.onChange}
+          onFocus={this.onChange}
           onBlur={this.hideSearchResults}
-          onFocus={this.showSearchResults}
+          style={{ border: '1px solid #dedede' }}
         />
         <div className="search-results" style={SearchResultsStyle}>
           {this.renderSearchResults()}

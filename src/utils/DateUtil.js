@@ -18,6 +18,12 @@ class DateUtil {
     return `${shortMonthName} ${day}, ${year}`;
   }
 
+  static toShortString(date = new Date()) {
+    const shortMonthName = i18n.get(`month_${date.getMonth()}_short`);
+    const day = date.getDate();
+    return `${day} ${shortMonthName}`;
+  }
+
   static isSameWeek(checkDate = new Date(), weekStart = new Date()) {
       return Math.abs(weekStart.getTime() - checkDate.getTime()) <= ONE_WEEK_IN_MS;
   }

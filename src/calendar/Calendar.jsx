@@ -60,6 +60,7 @@ class Calendar extends Component {
   onAddEvent = (lastEvent) => {
     const { events } = this.state;
     events.push(lastEvent);
+    events.sort(function(a, b) { return a.date.getTime() - b.date.getTime() })
     this.setState({ events , lastEvent });
   }
 

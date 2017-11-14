@@ -99,7 +99,7 @@ class NewEventAnchor extends Component {
             <div>
               <span>{DateUtil.toString(this.state.date)}</span>
               <span
-                style={{ borderLeft: '1px solid #adadad', paddingLeft: '10px', marginLeft: '10px' }}
+                style={{ borderLeft: '1px solid #adadad', paddingLeft: '4px', marginLeft: '4px' }}
               >
                 <TextField
                   name="startTime"
