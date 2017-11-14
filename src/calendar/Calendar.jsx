@@ -77,11 +77,19 @@ class Calendar extends Component {
     this.forceUpdate();
   }
 
+  closeEventAnchor = () => {
+    this.setState({ anchorRect: null });
+  }
+
   render() {
     const month = this.state.date.getMonth();
     const year = this.state.date.getFullYear();
     return (
-      <div className="macos-calendar" style={CalendarStyle} onClick={this.onCalendarClick}>
+      <div
+        className="macos-calendar"
+        style={CalendarStyle}
+        onClick={this.onCalendarClick}
+      >
         <div className="macos-calendar-header" style={FlexStyle}>
           <div className="macos-calendar-indicators" style={FlexStyle}>
             <MonthIndicator month={month} />

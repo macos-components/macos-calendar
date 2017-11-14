@@ -34,6 +34,12 @@ const EventBodyStyle = {
   fontSize: '14px'
 };
 
+const TimeInputStyle = {
+  width: '66px',
+  fontSize: '12px',
+  padding: '0'
+};
+
 class NewEventAnchor extends Component {
   constructor(props) {
     super(props);
@@ -95,7 +101,23 @@ class NewEventAnchor extends Component {
               <span
                 style={{ borderLeft: '1px solid #adadad', paddingLeft: '10px', marginLeft: '10px' }}
               >
-                {this.state.startTime} {i18n.get('to')} {this.state.endTime}
+                <TextField
+                  name="startTime"
+                  value={this.state.startTime}
+                  onChange={this.onChange}
+                  style={TimeInputStyle}
+                  type="time"
+                />
+                <span style={{ marginRight: '8px' }}>
+                  {i18n.get('to')}
+                </span>
+                <TextField
+                  name="endTime"
+                  value={this.state.endTime}
+                  onChange={this.onChange}
+                  style={TimeInputStyle}
+                  type="time"
+                />
               </span>
             </div>
             <div>
