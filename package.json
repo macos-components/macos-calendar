@@ -1,8 +1,12 @@
 {
   "name": "macos-calendar",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "MacOs Calendar is a Calendar component for react looks like MacOs native calendar.",
-  "main": "build/index.js",
+  "main": "./build",
+  "repository" : {
+    "type" : "git",
+    "url" : "git+https://github.com/arikanmstf/macos-calendar.git"
+  },
   "peerDependencies": {
     "react": "^15.5.4"
   },
@@ -13,11 +17,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack --watch",
-    "build": "webpack"
+    "build": "webpack",
+    "prepublish": "npm run build"
   },
   "author": {
     "name": "Mustafa Arikan",
-    "email": "arikanmstf@gmail.com"
+    "email": "arikanmstf@gmail.com",
+    "url": "http://mustafaarikan.net"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
