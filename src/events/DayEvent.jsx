@@ -11,7 +11,10 @@ const DayEventStyle = {
   fontSize: '12px',
   textAlign: 'left',
   cursor: 'pointer',
-  marginTop: '7px'
+  marginTop: '7px',
+  maxWidth: '70px',
+  textOverflow: 'ellipsis',
+  overflow: 'hidden'
 };
 
 class DayEvent extends Component {

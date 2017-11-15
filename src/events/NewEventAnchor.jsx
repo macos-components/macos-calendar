@@ -31,13 +31,25 @@ const BoxStyle = {
 }
 const EventBodyStyle = {
   ...BoxStyle,
-  fontSize: '14px'
+  fontSize: '14px',
+  position: 'relative'
 };
 
 const TimeInputStyle = {
-  width: '66px',
-  fontSize: '12px',
-  padding: '0'
+  width: '70px',
+  fontSize: '11px',
+  padding: '0',
+  border: '1px solid #dedede'
+};
+
+const RemoveIconStyle = {
+  position: 'absolute',
+  fontSize: '20px',
+  top: '10px',
+  right: '10px',
+  zIndex: '100',
+  cursor: 'pointer',
+  color: 'rgb(252, 61, 57)'
 };
 
 class NewEventAnchor extends Component {
@@ -59,6 +71,10 @@ class NewEventAnchor extends Component {
   onChange = (ev) => {
     this.setState({ [ev.target.name]: ev.target.value });
     this.props.onChange(ev);
+  }
+
+  onRemove = () => {
+    this.props.onRemove(this.state);
   }
 
   onClick = (ev) => {
@@ -94,6 +110,7 @@ class NewEventAnchor extends Component {
               onChange={this.onChange}
               style={{ paddingLeft: '0px' }}
             />
+          <span onClick={this.onRemove} style={RemoveIconStyle}>x</span>
           </div>
           <div className="new-event-body" style={EventBodyStyle}>
             <div>
@@ -108,9 +125,7 @@ class NewEventAnchor extends Component {
                   style={TimeInputStyle}
                   type="time"
                 />
-                <span style={{ marginRight: '8px' }}>
-                  {i18n.get('to')}
-                </span>
+                <span style={{ margin: '0 3px' }}>-</span>
                 <TextField
                   name="endTime"
                   value={this.state.endTime}

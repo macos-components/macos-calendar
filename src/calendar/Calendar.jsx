@@ -26,6 +26,23 @@ class Calendar extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      date: props.date || new Date(),
+      anchorRect: null,
+      events: props.events || []
+    }
+    this.initialize(props);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.initialize(nextProps);
+    this.setState({
+      date: nextProps.date || new Date(),
+      events: nextProps.events || [],
+    });
+  }
+
+  initialize(props) {
     if (props.languages) {
       props.languages.forEach((lang) => {
         i18n.addLanguage(lang.name, lang.value);
@@ -34,12 +51,6 @@ class Calendar extends Component {
 
     if (props.defaultLanguage) {
       i18n.setLanguage(props.defaultLanguage);
-    }
-
-    this.state = {
-      date: props.date || new Date(),
-      anchorRect: null,
-      events: []
     }
   }
 
@@ -88,6 +99,23 @@ class Calendar extends Component {
     const { events, lastEvent } = this.state;
     lastEvent[ev.target.name] = ev.target.value;
     this.setState({ events, lastEvent });
+  }
+
+  onRemoveEvent = (ev) => {
+    const { events: currentEvents } = this.state;
+    const events = currentEvents.filter((event) => {
+      return !(
+        event.name === ev.name &&
+        event.description === ev.description &&
+        event.startTime === ev.startTime &&
+        event.endTime === ev.endTime &&
+        event.date.toString() === ev.date.toString()
+      );
+    });
+    this.setState({ events, lastEvent: events[event.lenght - 1], anchorRect: null });
+    if (this.props.onEventRemove) {
+      this.props.onEventRemove(ev);
+    }
   }
 
   onLanguageChange = () => {
@@ -139,6 +167,7 @@ class Calendar extends Component {
         <NewEventAnchor
           rect={this.state.anchorRect}
           onChange={this.onNewEventChange}
+          onRemove={this.onRemoveEvent}
           event={this.state.lastEvent}
         /> :
         null

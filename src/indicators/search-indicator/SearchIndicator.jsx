@@ -22,12 +22,15 @@ const SearchResultStyle = {
 };
 
 const EventTitleStyle = {
-  fontSize: '18px'
+  fontSize: '18px',
+  textOverflow: 'ellipsis',
+  overflow: 'hidden'
 };
 const EventDescStyle = {
   fontSize: '12px',
   paddingTop: '10px',
-  fontWeight: '200'
+  fontWeight: '200',
+  wordBreak: 'break-word'
 };
 const EventTimeStyle = {
   fontSize: '14px'
