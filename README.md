@@ -57,7 +57,7 @@ class App extends Component {
           languages={languages}
           defaultLanguage="tr"
           events={events}
-          date={date}
+          useStorage="true"
         />
       </div>
     );
@@ -122,6 +122,17 @@ export default {
 * Search Events
 * Navigate months
 * Multiple Language
+* Initial Events
+* Local Storage
 
+## Props
+
+* onEventAdd: _Func_, Event added event callback function. Default: *null*
+* onEventEdit: _Func_, Event edited event callback function. Default: *null*
+* onEventRemove: _Func_, Event removed event callback function. Default: *null*
+* languages: _Arr_, Additional language objects. Default: *[tr, en]*
+* defaultLanguage: _String_, Default language key name. Default: *en*
+* events: _Arr_, Initial event list. Note that, work only if _useStorage_ is false. Default: *[]*
+* useStorage: _Bool_, If true, events will be saved to storage, and _events_ prop won't work. Default: *false*
 
 Demo available at: http://mustafaarikan.net/macos-calendar/

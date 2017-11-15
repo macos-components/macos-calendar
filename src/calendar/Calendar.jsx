@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import i18n from 'utils/i18n/I18n';
+import StorageUtil from 'utils/StorageUtil';
 import CalendarYear from 'calendar/calendar-year/CalendarYear';
 import MonthIndicator from 'indicators/month-indicator/MonthIndicator';
 import YearIndicator from 'indicators/year-indicator/YearIndicator';
@@ -10,27 +11,38 @@ import DateSelector from 'indicators/date-selector/DateSelector';
 import LanguageSelector from 'indicators/language-selector/LanguageSelector';
 import NewEventAnchor from 'events/NewEventAnchor';
 
+const EVENTS = 'events';
 const CalendarStyle = {
   width: '100%',
   height: '100%',
   padding: '10px'
-}
+};
 const FlexStyle = {
   display: 'flex',
   flexDirection: 'row',
   flexWrap: 'nowrap',
   justifyContent: 'space-between',
   alignItems: 'center'
-}
+};
 class Calendar extends Component {
   constructor(props) {
     super(props);
 
+    let events = props.events ? props.events : [];
+    if (props.useStorage) {
+      const storeEvents = StorageUtil.load(EVENTS) || [];
+      storeEvents.forEach((ev) => {
+        ev.date = new Date(ev.date);
+      });
+      events = storeEvents
+    }
+
     this.state = {
       date: props.date || new Date(),
       anchorRect: null,
-      events: props.events || []
+      events
     }
+
     this.initialize(props);
   }
 
@@ -82,7 +94,12 @@ class Calendar extends Component {
     const { events } = this.state;
     events.push(lastEvent);
     events.sort(function(a, b) { return a.date.getTime() - b.date.getTime() })
+
     this.setState({ events , lastEvent });
+
+    if (this.props.useStorage) {
+      StorageUtil.save(EVENTS, events);
+    }
     if (this.props.onEventAdd) {
       this.props.onEventAdd(lastEvent);
     }
@@ -99,6 +116,10 @@ class Calendar extends Component {
     const { events, lastEvent } = this.state;
     lastEvent[ev.target.name] = ev.target.value;
     this.setState({ events, lastEvent });
+
+    if (this.props.useStorage) {
+      StorageUtil.save(EVENTS, events);
+    }
   }
 
   onRemoveEvent = (ev) => {
@@ -112,7 +133,11 @@ class Calendar extends Component {
         event.date.toString() === ev.date.toString()
       );
     });
+
     this.setState({ events, lastEvent: events[event.lenght - 1], anchorRect: null });
+    if (this.props.useStorage) {
+      StorageUtil.save(EVENTS, events);
+    }
     if (this.props.onEventRemove) {
       this.props.onEventRemove(ev);
     }
