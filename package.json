@@ -25,6 +25,14 @@
     "email": "arikanmstf@gmail.com",
     "url": "http://mustafaarikan.net"
   },
+  "homepage": "http://mustafaarikan.net/macos-calendar",
+  "keywords": [
+    "components",
+    "calendar",
+    "react",
+    "react-component",
+    "macos"
+  ],
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-core": "^6.24.1",

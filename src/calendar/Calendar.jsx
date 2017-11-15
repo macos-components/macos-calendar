@@ -26,6 +26,16 @@ class Calendar extends Component {
   constructor(props) {
     super(props);
 
+    if (props.languages) {
+      props.languages.forEach((lang) => {
+        i18n.addLanguage(lang.name, lang.value);
+      });
+    }
+
+    if (props.defaultLanguage) {
+      i18n.setLanguage(props.defaultLanguage);
+    }
+
     this.state = {
       date: props.date || new Date(),
       anchorRect: null,
@@ -69,6 +79,9 @@ class Calendar extends Component {
 
   onEditEvent = (lastEvent) => {
     this.setState({ lastEvent });
+    if (this.props.onEventEdit) {
+      this.props.onEventEdit(lastEvent);
+    }
   }
 
   onNewEventChange = (ev) => {

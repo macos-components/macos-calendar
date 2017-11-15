@@ -19,6 +19,10 @@ class I18n {
     return translatedString;
   }
 
+  addLanguage(key, value) {
+    this.data[key] = value;
+  }
+
   setLanguage(lang) {
     this.language = lang;
   }
