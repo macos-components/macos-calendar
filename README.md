@@ -1,10 +1,31 @@
-# My Calendar
-
-### Familiar with Npm?
+# Macos Calendar
 
 ```
 > npm install --save macos-calendar
 ```
+### Features
+* Add, Edit, Remove Event
+* Search for Events
+* Navigate Months
+* Multiple Language
+* Initial Events
+* Save and Load Events to Local Storage
+
+
+Demo available at: http://mustafaarikan.net/macos-calendar/
+
+### Without Props
+
+```jsx
+import React, { Component } from 'react';
+import Calendar from 'macos-calendar';
+
+const SomeComponent = () => (
+  <Calendar />
+);
+```
+
+### With Props
 
 ```jsx
 import React, { Component } from 'react';
@@ -57,7 +78,7 @@ class App extends Component {
           languages={languages}
           defaultLanguage="tr"
           events={events}
-          useStorage="true"
+          useStorage
         />
       </div>
     );
@@ -117,13 +138,6 @@ export default {
   search_events: 'Etkinlikleri Ara'
 };
 ```
-## Features
-* Add Edit Event
-* Search Events
-* Navigate months
-* Multiple Language
-* Initial Events
-* Local Storage
 
 ## Props
 
@@ -134,5 +148,3 @@ export default {
 * defaultLanguage: _String_, Default language key name. Default: *en*
 * events: _Arr_, Initial event list. Note that, work only if _useStorage_ is false. Default: *[]*
 * useStorage: _Bool_, If true, events will be saved to storage, and _events_ prop won't work. Default: *false*
-
-Demo available at: http://mustafaarikan.net/macos-calendar/

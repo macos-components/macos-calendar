@@ -10,7 +10,11 @@ class StorageUtil {
   }
 
   load(key) {
-    return JSON.parse(window.localStorage.getItem(`${this.prefix}${key}`));
+    if (window.localStorage) {
+      return JSON.parse(window.localStorage.getItem(`${this.prefix}${key}`));
+    } else {
+      return null;
+    }
   }
 }
 

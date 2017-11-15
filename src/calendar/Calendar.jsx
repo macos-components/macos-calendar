@@ -134,7 +134,7 @@ class Calendar extends Component {
       );
     });
 
-    this.setState({ events, lastEvent: events[event.lenght - 1], anchorRect: null });
+    this.setState({ events, lastEvent: events[events.lenght - 1], anchorRect: null });
     if (this.props.useStorage) {
       StorageUtil.save(EVENTS, events);
     }
