@@ -5,7 +5,7 @@
   "main": "./build",
   "repository" : {
     "type" : "git",
-    "url" : "git+https://github.com/arikanmstf/macos-calendar.git"
+    "url" : "git+https://github.com/macos-calendar/macos-calendar.git"
   },
   "peerDependencies": {
     "react": "^15.5.4"
