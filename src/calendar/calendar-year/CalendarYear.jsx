@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import DateUtil from 'utils/DateUtil';
-import CalendarMonth from 'calendar/calendar-month/CalendarMonth';
 
 const CalendarYearStyle = {
   height: '100%'
@@ -15,15 +14,7 @@ class CalendarYear extends Component {
     });
 
     return (
-      <div className="macos-calendar-year" style={CalendarYearStyle}>
-        <CalendarMonth
-          date={this.props.date}
-          events={events}
-          onCellClick={this.props.onCellClick}
-          onAddEvent={this.props.onAddEvent}
-          onEditEvent={this.props.onEditEvent}
-        />
-      </div>
+      <div className="macos-calendar-year" style={CalendarYearStyle} />
     );
   }
 }

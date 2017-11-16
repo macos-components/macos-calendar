@@ -79,6 +79,7 @@ class App extends Component {
           defaultLanguage="tr"
           events={events}
           useStorage
+          activeCalendar="WEEKLY"
         />
       </div>
     );
@@ -136,7 +137,9 @@ export default {
   new_event: 'Yeni Etkinlik',
   enter_description: 'Açıklama giriniz.',
   search_events: 'Etkinlikleri Ara',
-  save: 'Kaydet'
+  save: 'Kaydet',
+  calendar_type_WEEKLY: 'Haftalık',
+  calendar_type_MONTHLY: 'Aylık'
 };
 ```
 
@@ -149,3 +152,4 @@ export default {
 * defaultLanguage: _String_, Default language key name. Default: *en*
 * events: _Arr_, Initial event list. Note that, work only if _useStorage_ is false. Default: *[]*
 * useStorage: _Bool_, If true, events will be saved to storage, and _events_ prop won't work. Default: *false*
+* activeCalendar: _String_, Choose one of calendar type. _WEEKLY_ or _MONTHLY_ . Default: _MONTHLY_

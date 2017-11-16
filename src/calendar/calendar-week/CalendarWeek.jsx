@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
 import CalendarDay from 'calendar/calendar-day/CalendarDay';
+import { DAYS_IN_A_WEEK } from 'calendar/constants';
 
-const DAYS_IN_A_WEEK = 7;
 const CalendarWeekStyle = {
   display: 'flex',
   flexDirection: 'row',

@@ -2,15 +2,19 @@ import React, { Component } from 'react';
 
 import i18n from 'utils/i18n/I18n';
 import StorageUtil from 'utils/StorageUtil';
-import CalendarYear from 'calendar/calendar-year/CalendarYear';
+
+import CalendarMonth from 'calendar/calendar-month/CalendarMonth';
+
 import MonthIndicator from 'indicators/month-indicator/MonthIndicator';
 import YearIndicator from 'indicators/year-indicator/YearIndicator';
-import WeekIndicator from 'indicators/week-indicator/WeekIndicator';
 import SearchIndicator from 'indicators/search-indicator/SearchIndicator';
 import DateSelector from 'indicators/date-selector/DateSelector';
 import LanguageSelector from 'indicators/language-selector/LanguageSelector';
+import CalendarIndicator from 'indicators/calendar-indicator/CalendarIndicator';
+
 import NewEventAnchor from 'events/NewEventAnchor';
 import NewEventButton from 'events/NewEventButton';
+import { CALENDAR_TYPES } from 'calendar/constants';
 
 const EVENTS = 'events';
 const CalendarStyle = {
@@ -38,13 +42,28 @@ class Calendar extends Component {
       events = storeEvents
     }
 
+    Calendar.sortEvents(events);
+
     this.state = {
       date: props.date || new Date(),
       anchorRect: null,
+      activeCalendar: props.activeCalendar || CALENDAR_TYPES.MONTHLY,
       events
     }
 
     this.initialize(props);
+  }
+
+  static sortEvents(events) {
+    events.sort(function(a, b) {
+      const startTimeA= a.startTime.split(":");
+      const startTimeB= b.startTime.split(":");
+      a.date.setHours(startTimeA[0]);
+      a.date.setMinutes(startTimeA[1]);
+      b.date.setHours(startTimeB[0]);
+      b.date.setMinutes(startTimeB[1]);
+      return a.date.getTime() - b.date.getTime()
+    });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -94,7 +113,7 @@ class Calendar extends Component {
   onAddEvent = (lastEvent) => {
     const { events } = this.state;
     events.push(lastEvent);
-    events.sort(function(a, b) { return a.date.getTime() - b.date.getTime() })
+    Calendar.sortEvents(events);
 
     this.setState({ events , lastEvent });
 
@@ -117,6 +136,7 @@ class Calendar extends Component {
   onNewEventChange = (ev) => {
     const { events, lastEvent } = this.state;
     lastEvent[ev.target.name] = ev.target.value;
+    Calendar.sortEvents(events);
     this.setState({ events, lastEvent });
 
     if (this.props.useStorage) {
@@ -171,8 +191,25 @@ class Calendar extends Component {
     this.forceUpdate();
   }
 
+  onActiveCalendarChange = (type) => {
+    this.setState({ activeCalendar: type })
+  }
+
   closeEventAnchor = () => {
     this.setState({ anchorRect: null });
+  }
+
+  renderCalendar() {
+    return (
+      <CalendarMonth
+        date={this.state.date}
+        events={this.state.events}
+        onCellClick={this.onCellClick}
+        onAddEvent={this.onAddEvent}
+        onEditEvent={this.onEditEvent}
+        weekly={this.state.activeCalendar === CALENDAR_TYPES.WEEKLY}
+      />
+    );
   }
 
   render() {
@@ -205,14 +242,11 @@ class Calendar extends Component {
             />
           </div>
         </div>
-        <WeekIndicator />
-        <CalendarYear
-          date={this.state.date}
-          events={this.state.events}
-          onCellClick={this.onCellClick}
-          onAddEvent={this.onAddEvent}
-          onEditEvent={this.onEditEvent}
+        <CalendarIndicator
+          type={this.state.activeCalendar}
+          onChange={this.onActiveCalendarChange}
         />
+        {this.renderCalendar()}
       { this.state.anchorRect ?
         <NewEventAnchor
           rect={this.state.anchorRect}

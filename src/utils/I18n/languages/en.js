@@ -42,5 +42,7 @@ export default {
   new_event: 'New Event',
   enter_description: 'Enter Description',
   search_events: 'Search Events',
-  save: 'Save'
+  save: 'Save',
+  calendar_type_WEEKLY: 'Weekly',
+  calendar_type_MONTHLY: 'Monthly'
 };
