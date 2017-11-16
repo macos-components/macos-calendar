@@ -10,6 +10,7 @@ import SearchIndicator from 'indicators/search-indicator/SearchIndicator';
 import DateSelector from 'indicators/date-selector/DateSelector';
 import LanguageSelector from 'indicators/language-selector/LanguageSelector';
 import NewEventAnchor from 'events/NewEventAnchor';
+import NewEventButton from 'events/NewEventButton';
 
 const EVENTS = 'events';
 const CalendarStyle = {
@@ -106,6 +107,7 @@ class Calendar extends Component {
   }
 
   onEditEvent = (lastEvent) => {
+    lastEvent.showSaveButton = false;
     this.setState({ lastEvent });
     if (this.props.onEventEdit) {
       this.props.onEventEdit(lastEvent);
@@ -143,6 +145,28 @@ class Calendar extends Component {
     }
   }
 
+  onNewEventButtonClick = (rect) => {
+    const event = {
+      title: i18n.get('new_event'),
+      description: i18n.get('enter_description'),
+      startTime: '',
+      endTime: '',
+      date: new Date(),
+      showSaveButton: true
+    };
+    this.setState({
+      anchorRect: rect,
+      lastEvent: event
+    });
+  }
+
+  onSaveButtonClick = (event) => {
+    const { events} = this.state;
+    events.push(event);
+    this.setState({ events });
+    this.closeEventAnchor();
+  }
+
   onLanguageChange = () => {
     this.forceUpdate();
   }
@@ -164,6 +188,7 @@ class Calendar extends Component {
           <div className="macos-calendar-indicators" style={FlexStyle}>
             <MonthIndicator month={month} />
             <YearIndicator year={year} />
+            <NewEventButton onClick={this.onNewEventButtonClick} />
           </div>
           <div>
             <SearchIndicator events={this.state.events} />
@@ -192,6 +217,7 @@ class Calendar extends Component {
         <NewEventAnchor
           rect={this.state.anchorRect}
           onChange={this.onNewEventChange}
+          onSave={this.onSaveButtonClick}
           onRemove={this.onRemoveEvent}
           event={this.state.lastEvent}
         /> :

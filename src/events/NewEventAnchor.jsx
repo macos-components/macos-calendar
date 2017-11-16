@@ -6,7 +6,7 @@ import TextField from 'form/TextField';
 
 const NewEventAnchorStyle = {
   width: '270px',
-  height: '170px',
+  height: '200px',
   backgroundColor: 'rgb(239, 239, 239)',
   position: 'absolute',
   zIndex: '10000',
@@ -52,12 +52,18 @@ const RemoveIconStyle = {
   color: 'rgb(252, 61, 57)'
 };
 
+const SaveButtonStyle = {
+  backgroundColor: 'rgb(42, 174, 245)',
+  color: 'rgb(255, 255, 255)',
+  cursor: 'pointer'
+};
+
 class NewEventAnchor extends Component {
   constructor(props) {
     super(props);
-    this.state = {
+    this.state = props.event ? {
       ...props.event
-    }
+    } : {};
     this.initialize(props);
   }
 
@@ -68,9 +74,34 @@ class NewEventAnchor extends Component {
     this.initialize(nextProps);
   }
 
+  renderDate() {
+    const date = DateUtil.toInputFormat(this.state.date);
+
+    return (
+      <TextField
+        name="date"
+        type="date"
+        value={date}
+        onChange={this.onDateChange}
+      />
+    );
+  }
+
   onChange = (ev) => {
     this.setState({ [ev.target.name]: ev.target.value });
     this.props.onChange(ev);
+  }
+
+  onDateChange = (ev) => {
+    const event = {
+      target: {
+        name: ev.target.name,
+        value: ev.target.value
+      }
+    };
+    event.target.value = new Date(ev.target.value);
+    this.setState({ [event.target.name]: event.target.value });
+    this.props.onChange(event);
   }
 
   onRemove = () => {
@@ -79,6 +110,10 @@ class NewEventAnchor extends Component {
 
   onClick = (ev) => {
     ev.stopPropagation();
+  }
+
+  onSave = () => {
+    this.props.onSave(this.state);
   }
 
   initialize(props) {
@@ -114,7 +149,7 @@ class NewEventAnchor extends Component {
           </div>
           <div className="new-event-body" style={EventBodyStyle}>
             <div>
-              <span>{DateUtil.toString(this.state.date)}</span>
+              {this.renderDate()}
               <span
                 style={{ borderLeft: '1px solid #adadad', paddingLeft: '4px', marginLeft: '4px' }}
               >
@@ -143,6 +178,9 @@ class NewEventAnchor extends Component {
                 style={{ paddingLeft: '0px' }}
                 multiline="true"
               />
+              { this.state.showSaveButton ?
+                <button style={SaveButtonStyle} onClick={this.onSave}>{i18n.get('save')}</button>
+              : null }
             </div>
           </div>
         </div>

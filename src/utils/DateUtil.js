@@ -31,6 +31,12 @@ class DateUtil {
   static isSameMonth(checkDate = new Date(), weekStart = new Date()) {
       return Math.abs(weekStart.getTime() - checkDate.getTime()) <= ONE_MONTH_IN_MS;
   }
+
+  static toInputFormat(date = new Date()) {
+    var mm = date.getMonth() + 1;
+    var dd = date.getDate();
+    return [date.getFullYear(),(mm>9 ? '' : '0') + mm,(dd>9 ? '' : '0') + dd].join('-');
+  }
 }
 
 export default DateUtil;

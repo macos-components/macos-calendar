@@ -41,5 +41,6 @@ export default {
   today: 'Today',
   new_event: 'New Event',
   enter_description: 'Enter Description',
-  search_events: 'Search Events'
+  search_events: 'Search Events',
+  save: 'Save'
 };

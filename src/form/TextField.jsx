@@ -43,7 +43,7 @@ class TextField extends Component {
           className="text-field"
           style={customStyle}
           value={this.state.value}
-          rows="3"
+          rows="2"
           onChange={this.handleChange}
           {...other}
         />)

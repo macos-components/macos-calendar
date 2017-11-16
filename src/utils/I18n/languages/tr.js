@@ -41,5 +41,6 @@ export default {
   today: 'Bugün',
   new_event: 'Yeni Etkinlik',
   enter_description: 'Açıklama giriniz.',
-  search_events: 'Etkinlikleri Ara'
+  search_events: 'Etkinlikleri Ara',
+  save: 'Kaydet'
 };
