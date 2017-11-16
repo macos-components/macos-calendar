@@ -163,6 +163,7 @@ class Calendar extends Component {
   onSaveButtonClick = (event) => {
     const { events} = this.state;
     events.push(event);
+    StorageUtil.save(EVENTS, events);
     this.setState({ events });
     this.closeEventAnchor();
   }
