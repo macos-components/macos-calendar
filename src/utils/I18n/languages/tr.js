@@ -42,7 +42,5 @@ export default {
   new_event: 'Yeni Etkinlik',
   enter_description: 'Açıklama giriniz.',
   search_events: 'Etkinlikleri Ara',
-  save: 'Kaydet',
-  calendar_type_WEEKLY: 'Haftalık',
-  calendar_type_MONTHLY: 'Aylık'
+  save: 'Kaydet'
 };

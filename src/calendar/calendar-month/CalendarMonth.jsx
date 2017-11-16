@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 import DateUtil from 'utils/DateUtil';
 import CalendarWeek from 'calendar/calendar-week/CalendarWeek';
-import WeekIndicator from 'indicators/week-indicator/WeekIndicator';
 
 const WEEK_IN_A_MONTH_VIEW = 6;
 const CalendarMonthStyle = {
@@ -24,19 +23,17 @@ class CalendarMonth extends Component {
         return DateUtil.isSameWeek(ev.date, date);
       });
 
-      if(!this.props.weekly || DateUtil.isSameWeek(new Date(), date)) {
-        weeks.push(
-          <CalendarWeek
-            startDate={date}
-            key={i}
-            date={this.props.date}
-            events={events}
-            onCellClick={this.props.onCellClick}
-            onAddEvent={this.props.onAddEvent}
-            onEditEvent={this.props.onEditEvent}
-            />
-        );
-      }
+      weeks.push(
+        <CalendarWeek
+          startDate={date}
+          key={i}
+          date={this.props.date}
+          events={events}
+          onCellClick={this.props.onCellClick}
+          onAddEvent={this.props.onAddEvent}
+          onEditEvent={this.props.onEditEvent}
+        />
+      );
     }
 
     return weeks;
@@ -45,7 +42,6 @@ class CalendarMonth extends Component {
   render() {
     return (
       <div className="macos-calendar-month" style={CalendarMonthStyle}>
-        <WeekIndicator />
         {this.renderWeeks()}
       </div>
     );
