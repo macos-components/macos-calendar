@@ -1,6 +1,6 @@
 {
   "name": "macos-calendar",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "MacOs Calendar is a Calendar component for react looks like MacOs native calendar.",
   "main": "./build",
   "repository" : {
