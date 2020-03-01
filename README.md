@@ -12,7 +12,7 @@
 * Save and Load Events to Local Storage
 
 
-Demo available at: http://mustafaarikan.net/macos-calendar/
+Demo available at: http://mustafaarikan.net/calendar/
 
 ### Without Props
 
